@@ -45,15 +45,18 @@ namespace MnS_L1_GoL
             this.Controls.Add(dataGridView1);
         }
 
-        /*private void initDGV_Click(object sender, EventArgs e)
+        private void initDGV_Click(object sender, EventArgs e)
         {
             aliveCells.Clear();
             int iterator = 0;
-            foreach (DataGridViewCell cell in dataGridView1.Cells.Cast<DataGridViewCell>())
+            foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                if (cell.Value.ToString() == "1")
+                foreach (DataGridViewCell cell in row.Cells)
                 {
-                    aliveCells.Add((cell.RowIndex, cell.ColumnIndex));
+                    if (cell.Value.ToString() == "1")
+                    {
+                        aliveCells.Add((cell.RowIndex, cell.ColumnIndex));
+                    }
                 }
             }
             // MessageBox.Show(cellLoc.Item1.ToString() + ", " + cellLoc.Item2.ToString());
@@ -89,7 +92,7 @@ namespace MnS_L1_GoL
             /*foreach ((int, int) cell in cellsToDie)
             {
                 dataGridView1.Rows[cell.Item1].Cells[cell.Item2].Value = 0;
-            }
+            }*/
             foreach ((int, int) cell in cellsToRevive)
             {
                 dataGridView1.Rows[cell.Item1].Cells[cell.Item2].Value = 1;
@@ -103,9 +106,8 @@ namespace MnS_L1_GoL
             else
             {
                 MessageBox.Show("Cell (" + cellLoc.Item1 + ", " + cellLoc.Item2 + ") is DEAD!");
-            }
-        }*/
-
+            }*/
+        }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
