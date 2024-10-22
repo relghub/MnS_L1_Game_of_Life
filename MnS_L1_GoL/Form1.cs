@@ -6,6 +6,7 @@ namespace MnS_L1_GoL
         {
             AutoGenerateColumns = false
         };
+        static List<(int, int)> aliveCells = [], aliveNeighbours = [];
         public Form1()
         {
             InitializeComponent();
@@ -43,7 +44,43 @@ namespace MnS_L1_GoL
 
         private void initDGV_Click(object sender, EventArgs e)
         {
-
+            int iterator = 0;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value.ToString() == "1")
+                    {
+                        aliveCells.Add((cell.RowIndex, cell.ColumnIndex));
+                    }
+                }
+            }
+            while (true)
+            {
+                foreach ((int, int) cellLoc in aliveCells)
+                {
+                    // MessageBox.Show(cellLoc.Item1.ToString() + ", " + cellLoc.Item2.ToString());
+                    for (int i = cellLoc.Item1 - 1; i <= cellLoc.Item1 + 1; i++)
+                    {
+                        for (int j = cellLoc.Item2 - 1; j <= cellLoc.Item2 + 1; j++)
+                        {
+                            if (dataGridView1.Rows[i].Cells[j].Value.ToString() == "1")
+                            {
+                                aliveNeighbours.Add((i, j));
+                            }
+                        }
+                    }
+                    aliveNeighbours.Remove(cellLoc);
+                    if (aliveNeighbours.Count == 2 || aliveNeighbours.Count == 3)
+                    {
+                        MessageBox.Show("Cell (" + cellLoc.Item1 + ", " + cellLoc.Item2 + ") is going to be alive... for now.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cell (" + cellLoc.Item1 + ", " + cellLoc.Item2 + ") is DEAD!");
+                    }
+                }
+            }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)

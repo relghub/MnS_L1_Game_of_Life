@@ -39,6 +39,7 @@
             initDGV.TabIndex = 0;
             initDGV.Text = "Start";
             initDGV.UseVisualStyleBackColor = true;
+            initDGV.Click += initDGV_Click;
             // 
             // Form1
             // 
