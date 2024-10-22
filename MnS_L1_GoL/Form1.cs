@@ -20,7 +20,7 @@ namespace MnS_L1_GoL
 				dataGridView1.Columns.Add("col" + i, "Column " + i);
 				dataGridView1.Columns[i - 1].FillWeight = 1;
 			}
-			for (int j = 1; j <= 30; j++)
+			for (int j = 1; j <= 29; j++)
 			{
 				dataGridView1.Rows.Add();
 			}
@@ -40,6 +40,7 @@ namespace MnS_L1_GoL
 			dataGridView1.ReadOnly = true;
 			dataGridView1.RowsDefaultCellStyle.BackColor = Color.White;
 			dataGridView1.RowsDefaultCellStyle.SelectionBackColor = Color.Silver;
+			dataGridView1.GridColor = Color.Black;
 			dataGridView1.CellFormatting += new DataGridViewCellFormattingEventHandler(dataGridView1_CellFormatting);
 			dataGridView1.CellClick += new DataGridViewCellEventHandler(dataGridView1_CellClick);
 			this.AutoSize = true;
@@ -81,12 +82,12 @@ namespace MnS_L1_GoL
 				if (e.Value.ToString() == "0")
 				{
 					e.CellStyle.BackColor = Color.Black;
-					e.CellStyle.SelectionBackColor = Color.LightSalmon;
+					e.CellStyle.ForeColor = e.CellStyle.BackColor;
 				}
 				else if (e.Value.ToString() == "1")
 				{
 					e.CellStyle.BackColor = Color.White;
-					e.CellStyle.SelectionBackColor = Color.LightGreen;
+					e.CellStyle.ForeColor = e.CellStyle.BackColor;
 				}
 			}
 		}
@@ -133,7 +134,7 @@ namespace MnS_L1_GoL
 						{
 							cellsToDie.Add((i, j));
 						}
-						else if (!aliveCells.Contains((i, j)) && aliveNeighbours.Count == 3)
+						else if (!aliveCells.Contains((i, j)) && (aliveNeighbours.Count == 3 || aliveNeighbours.Count == 4))
 						{
 							cellsToRevive.Add((i, j));
 						}
