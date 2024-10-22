@@ -6,7 +6,10 @@ namespace MnS_L1_GoL
         {
             AutoGenerateColumns = false
         };
-        static List<(int, int)> aliveCells = [], aliveNeighbours = [];
+        static List<(int, int)> aliveCells = [],
+                           aliveNeighbours = [],
+                                cellsToDie = [],
+                             cellsToRevive = [];
         public Form1()
         {
             InitializeComponent();
@@ -42,46 +45,67 @@ namespace MnS_L1_GoL
             this.Controls.Add(dataGridView1);
         }
 
-        private void initDGV_Click(object sender, EventArgs e)
+        /*private void initDGV_Click(object sender, EventArgs e)
         {
+            aliveCells.Clear();
             int iterator = 0;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            foreach (DataGridViewCell cell in dataGridView1.Cells.Cast<DataGridViewCell>())
             {
-                foreach (DataGridViewCell cell in row.Cells)
+                if (cell.Value.ToString() == "1")
                 {
-                    if (cell.Value.ToString() == "1")
-                    {
-                        aliveCells.Add((cell.RowIndex, cell.ColumnIndex));
-                    }
+                    aliveCells.Add((cell.RowIndex, cell.ColumnIndex));
                 }
             }
-            while (true)
+            // MessageBox.Show(cellLoc.Item1.ToString() + ", " + cellLoc.Item2.ToString());
+            for (int i = 0; i <= 29; i++)
             {
-                foreach ((int, int) cellLoc in aliveCells)
+                for (int j = 0; j <= 49; j++)
                 {
-                    // MessageBox.Show(cellLoc.Item1.ToString() + ", " + cellLoc.Item2.ToString());
-                    for (int i = cellLoc.Item1 - 1; i <= cellLoc.Item1 + 1; i++)
+                    for (int k = i - 1 < 0 ? 30 - 1 : i - 1; k < i + 1; k++)
                     {
-                        for (int j = cellLoc.Item2 - 1; j <= cellLoc.Item2 + 1; j++)
+                        for (int l = j - 1 < 0 ? 50 - 1 : j - 1; l < j + 1; l++)
                         {
-                            if (dataGridView1.Rows[i].Cells[j].Value.ToString() == "1")
+                            if (dataGridView1.Rows[k].Cells[l].Value.ToString() == "1")
                             {
-                                aliveNeighbours.Add((i, j));
+                                aliveNeighbours.Add((k, l));
                             }
                         }
                     }
-                    aliveNeighbours.Remove(cellLoc);
-                    if (aliveNeighbours.Count == 2 || aliveNeighbours.Count == 3)
+                    if ((aliveNeighbours.Count < 2 || aliveNeighbours.Count > 3) && aliveCells.Contains((i, j)))
                     {
-                        MessageBox.Show("Cell (" + cellLoc.Item1 + ", " + cellLoc.Item2 + ") is going to be alive... for now.");
+                        cellsToDie.Add((i, j));
+                        dataGridView1.Rows[i].Cells[j].Value = 0;
+                        //aliveCells.Remove((i, j));
                     }
-                    else
+                    else if (!aliveCells.Contains((i, j)) && aliveNeighbours.Count == 3)
                     {
-                        MessageBox.Show("Cell (" + cellLoc.Item1 + ", " + cellLoc.Item2 + ") is DEAD!");
+                        cellsToRevive.Add((i, j));
+                        //dataGridView1.Rows[i].Cells[j].Value = 1;
+                        //aliveCells.Add((i, j));
                     }
+                    aliveNeighbours.Clear();
                 }
             }
-        }
+            /*foreach ((int, int) cell in cellsToDie)
+            {
+                dataGridView1.Rows[cell.Item1].Cells[cell.Item2].Value = 0;
+            }
+            foreach ((int, int) cell in cellsToRevive)
+            {
+                dataGridView1.Rows[cell.Item1].Cells[cell.Item2].Value = 1;
+            }
+
+            //aliveNeighbours.Remove(cellLoc);
+            /*if (aliveNeighbours.Count == 2 || aliveNeighbours.Count == 3)
+            {
+                MessageBox.Show("Cell (" + cellLoc.Item1 + ", " + cellLoc.Item2 + ") is going to be alive... for now.");
+            }
+            else
+            {
+                MessageBox.Show("Cell (" + cellLoc.Item1 + ", " + cellLoc.Item2 + ") is DEAD!");
+            }
+        }*/
+
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
