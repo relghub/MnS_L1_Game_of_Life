@@ -53,6 +53,7 @@ namespace MnS_L1_GoL
                 // Get the clicked cell
                 DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
+                // Change the values
                 if (cell.Value.ToString() == "0")
                 {
                     cell.Value = 1;
@@ -66,7 +67,7 @@ namespace MnS_L1_GoL
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Check that the current cell being formatted isn't in a header.
+            // Check that the current cell being formatted isn't in a header
             if (dataGridView1.Columns[e.ColumnIndex].Name != "ColumnName" && e.RowIndex >= 0)
             {
                 if (e.Value.ToString() == "0")
