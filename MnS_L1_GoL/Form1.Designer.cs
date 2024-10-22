@@ -33,7 +33,7 @@
             // 
             // initDGV
             // 
-            initDGV.Location = new Point(602, 784);
+            initDGV.Location = new Point(533, 789);
             initDGV.Name = "initDGV";
             initDGV.Size = new Size(94, 29);
             initDGV.TabIndex = 0;
@@ -45,6 +45,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Black;
             ClientSize = new Size(1204, 853);
             Controls.Add(initDGV);
             Name = "Form1";
